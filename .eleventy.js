@@ -1,10 +1,22 @@
 const { DateTime } = require("luxon");
+const { Liquid } = require("liquidjs");
 const CleanCSS = require("clean-css");
 const UglifyJS = require("uglify-js");
 const htmlmin = require("html-minifier");
 const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
 
 module.exports = function(eleventyConfig) {
+
+  // // Liquid Config
+  let liquidOptions = {
+    extname: ".liquid",
+    dynamicPartials: false,
+    strictFilters: false, // renamed from `strict_filters` in Eleventy 1.0
+    root: ["_includes"]
+  };
+
+  eleventyConfig.setLibrary("liquid", new Liquid(liquidOptions));
+  eleventyConfig.addFilter("liquid_version", () => require("liquidjs/package.json").version);
 
   // Eleventy Navigation https://www.11ty.dev/docs/plugins/navigation/
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
@@ -75,9 +87,12 @@ module.exports = function(eleventyConfig) {
     return content;
   });
 
+  
+
   // Don't process folders with static assets e.g. images
   eleventyConfig.addPassthroughCopy("favicon.ico");
   eleventyConfig.addPassthroughCopy("static/img");
+  eleventyConfig.addPassthroughCopy("static/video");
   eleventyConfig.addPassthroughCopy("admin/");
   eleventyConfig.addPassthroughCopy("_includes/assets/css/inline.css");
 
@@ -97,7 +112,7 @@ module.exports = function(eleventyConfig) {
   );
 
   return {
-    templateFormats: ["md", "njk", "liquid"],
+    templateFormats: ["md", "liquid"],
 
     // If your site lives in a different subdirectory, change this.
     // Leading or trailing slashes are all normalized away, so don’t worry about it.
@@ -106,8 +121,8 @@ module.exports = function(eleventyConfig) {
     pathPrefix: "/",
 
     markdownTemplateEngine: "liquid",
-    htmlTemplateEngine: "njk",
-    dataTemplateEngine: "njk",
+    htmlTemplateEngine: "liquid",
+    dataTemplateEngine: "liquid",
     dir: {
       input: ".",
       includes: "_includes",

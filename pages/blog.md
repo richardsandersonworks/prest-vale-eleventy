@@ -1,5 +1,5 @@
 ---
-layout: layouts/blog.njk
+layout: layouts/blog.liquid
 title: Blog
 metaDescription: A sample Blog page listing various posts and authors.
 date: 2017-01-01

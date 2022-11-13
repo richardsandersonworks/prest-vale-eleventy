@@ -3,12 +3,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ renderData.title or title or metadata.title }}</title>
   <meta name="description" content="{{ metaDescription or renderData.metaDescription or metadata.description }}">
-  {% set css %}
-    {% include "assets/css/inline.css" %}
-  {% endset %}
+  {% capture css %}
+    {% include "./assets/css/inline.css" %}
+  {% endcapture %}
   <style>{{ css | cssmin | safe }}</style>
-  {# {% set js %}
-    {% include "assets/js/inline.js" %}
-  {% endset %}
+  {% capture js %}
+    {% include "./assets/js/inline.js" %}
+  {% endcapture %}
   <script>{{ js | jsmin | safe }}</script> #}
 </head>

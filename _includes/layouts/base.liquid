@@ -1,0 +1,24 @@
+<!doctype html>
+<html {% if section %} data-current="{{ section }}"{% endif %} lang="en">
+
+	{% include './components/head.liquid' %}
+
+	<body>
+
+		<header>
+			
+				<a href="{{ '/' | url }}" alt="{{ metadata.title }}" title="{{ metadata.title }}">
+					{% include './components/wordmark.liquid' %}
+				</a>
+			
+		</header>
+
+		<main>
+			{{ content | safe }}
+		</main>
+
+		{% include "./components/footer.liquid" %}
+
+	</body>
+
+</html>

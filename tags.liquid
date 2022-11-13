@@ -9,7 +9,7 @@ pagination:
     - post
     - posts
 permalink: /tags/{{ tag }}/
-layout: layouts/base.njk
+layout: layouts/base.liquid
 renderData:
   title: "Tagged “{{ tag }}”"
   metaDescription: "All posts from the Blog tagged with “{{ tag }}”"
@@ -17,9 +17,8 @@ renderData:
 
 <h1>Tagged “{{ tag }}”</h1>
 
-{% set postslist = collections[tag] %}
-{% include "components/postslist.njk" %}
 
 <nav>
   <a href="{{ '/blog/' | url }}">← Blog index</a>
 </nav>
+ 
